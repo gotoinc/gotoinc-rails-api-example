@@ -8,14 +8,14 @@ class Api::V1::AuthorizedController < Api::V1::BaseController
   end
 
   def jwt
-    @jwt ||= Jwt::JsonWebToken.from_token token if token
+    @_jwt ||= Jwt::JsonWebToken.from_token(token) if token
   end
 
   def token
-    @token ||= request.headers['AUTHORIZATION'].to_s.split(' ').last
+    @_token ||= request.headers['AUTHORIZATION'].to_s.split(' ').last
   end
 
-  def validate_jwt!
-    render json: {error: 'Invalid token'}, status: :unauthorized unless jwt.present? && jwt.valid?
+  def validate_jwt!    
+    render json: { error: 'Invalid token' }, status: :unauthorized unless jwt.present? && jwt.valid?
   end
 end

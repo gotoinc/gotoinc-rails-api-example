@@ -1,14 +1,9 @@
 class Api::V1::Auth::BaseAuthInteraction < BaseInteraction
   protected
 
-  JWT_DATA = %w[username email].freeze
+  JWT_DATA = %w[user_id].freeze
 
   def token(user)
-    data = {}.tap do |obj|
-      JWT_DATA.each do |param|
-        obj[param.to_sym] = user.public_send(param)
-      end
-    end
-    JsonWebToken.encode(data) if user.valid?
+    Jwt::JsonWebToken.encode({ user_id: user.id }) if user.valid?
   end
 end

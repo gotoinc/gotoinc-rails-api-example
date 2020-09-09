@@ -8,7 +8,7 @@ module InteractionErrors
 
     def first_error
       {
-        message: errors.full_messages.join(", ")
+        message: errors.full_messages.join(', ')
       }
     end
   end
