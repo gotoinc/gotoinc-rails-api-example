@@ -16,8 +16,6 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def run_interaction(klass)
-    # a = params.permit(*klass.filters.keys).to_h.deep_symbolize_keys
-    #           .slice(*klass.filters.keys).merge(args)
     Rails.logger.info "Interaction: '#{klass}', args: #{params}"
     int = klass.run params
     status = int.valid?

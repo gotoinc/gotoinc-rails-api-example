@@ -2,6 +2,7 @@ class Api::V1::Auth::Login < Api::V1::Auth::BaseAuthInteraction
   string :identifier
   string :password
 
+  validates :user, presence: { message: 'not found' }
   validate :password_correct?, if: proc { user.present? && password.present? }
 
   serialize_with UserSerializer
@@ -22,6 +23,6 @@ class Api::V1::Auth::Login < Api::V1::Auth::BaseAuthInteraction
   end
 
   def user
-    @user ||= User.find_by(username: identifier) || User.find_by(email: identifier)
+    @_user ||= User.find_by(username: identifier) || User.find_by(email: identifier)
   end
 end

@@ -15,7 +15,7 @@ class Api::V1::AuthorizedController < Api::V1::BaseController
     @_token ||= request.headers['AUTHORIZATION'].to_s.split(' ').last
   end
 
-  def validate_jwt!    
+  def validate_jwt!
     render json: { error: 'Invalid token' }, status: :unauthorized unless jwt.present? && jwt.valid?
   end
 end
