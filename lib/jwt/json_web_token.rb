@@ -35,7 +35,6 @@ class Jwt::JsonWebToken
   def to_h
     {
       user_id: @user_id,
-      username: @username,
       email: @email
     }
   end

@@ -23,6 +23,6 @@ class Api::V1::Auth::Login < Api::V1::Auth::BaseAuthInteraction
   end
 
   def user
-    @_user ||= User.find_by(username: identifier) || User.find_by(email: identifier)
+    @_user ||= User.find_by(email: identifier)
   end
 end

@@ -1,5 +1,7 @@
 class Api::V1::Auth::Register < Api::V1::Auth::BaseAuthInteraction
-  string :username
+  string :name
+  string :last_name
+  string :group_id
   string :email
   string :password
 
@@ -7,7 +9,7 @@ class Api::V1::Auth::Register < Api::V1::Auth::BaseAuthInteraction
 
   def execute
     user = User.new(
-      username: username,
+      name: name,
       email: email,
       password: password
     )
