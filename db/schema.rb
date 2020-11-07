@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_05_202932) do
+ActiveRecord::Schema.define(version: 2020_11_07_161506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 2020_11_05_202932) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["university_id"], name: "index_buildings_on_university_id"
+  end
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.bigint "conversation_id"
+    t.bigint "conversation_participant_id"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_chat_messages_on_conversation_id"
+    t.index ["conversation_participant_id"], name: "index_chat_messages_on_conversation_participant_id"
   end
 
   create_table "conversation_participants", force: :cascade do |t|
@@ -65,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_202932) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "university_id"
+    t.string "admin_email"
     t.index ["university_id"], name: "index_groups_on_university_id"
   end
 
@@ -83,9 +94,10 @@ ActiveRecord::Schema.define(version: 2020_11_05_202932) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "last_name"
-    t.integer "role"
+    t.integer "role", default: 0
     t.bigint "group_id"
     t.string "password_digest"
+    t.string "locale", default: "en"
     t.index ["group_id"], name: "index_users_on_group_id"
   end
 

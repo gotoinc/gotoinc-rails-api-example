@@ -12,4 +12,8 @@ RSpec.describe University, type: :model do
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:city) }
   end
+
+  describe "delegations" do
+    #it { should delegate_method(:city).to(:groups) }
+  end
 end
