@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Event, type: :model do
   describe 'relations' do
-    it { should belong_to(:creator) }
+    it { should belong_to(:user) }
     it { should have_one(:booking).dependent(:destroy) } 
   end
   
