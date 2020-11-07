@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_07_161506) do
+ActiveRecord::Schema.define(version: 2020_11_07_222808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2020_11_07_161506) do
   create_table "bookings", force: :cascade do |t|
     t.bigint "building_id"
     t.bigint "event_id"
-    t.date "date_from"
-    t.date "date_to"
+    t.datetime "date_from"
+    t.datetime "date_to"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["building_id"], name: "index_bookings_on_building_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_11_07_161506) do
     t.bigint "university_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "available_time"
     t.index ["university_id"], name: "index_buildings_on_university_id"
   end
 

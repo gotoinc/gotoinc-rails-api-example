@@ -12,4 +12,8 @@ class AuthenticatedInteraction < BaseInteraction
   def user
     @user ||= User.find_by id: jwt.user_id if jwt.present?
   end
+
+  def is_admin?
+    user.admin?
+  end
 end

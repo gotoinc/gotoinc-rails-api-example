@@ -10,4 +10,8 @@ RSpec.describe Building, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:location) }
   end
+
+  describe 'serizlizers' do
+    it { should serialize(:available_time) }
+  end
 end

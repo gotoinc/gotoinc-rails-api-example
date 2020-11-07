@@ -3,4 +3,6 @@ class Building < ApplicationRecord
   has_many :booking, dependent: :destroy
 
   validates :name, :location, presence: true
+
+  serialize :available_time, Hash
 end
