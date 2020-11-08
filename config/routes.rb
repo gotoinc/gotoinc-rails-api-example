@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
       resources :events do
         resources :bookings
+        collection do
+          get :search
+        end
       end
       
       resources :conversations do

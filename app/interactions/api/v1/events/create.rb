@@ -48,22 +48,8 @@ class Api::V1::Events::Create < AuthenticatedInteraction
 
   def possible_booking?
     return errors.add :date, 'is invalid' if date_to < date_from
-    
-    available_hours = building.available_time[day_of_the_week]    
-    bookings = Booking.joins(:event).where(events: { date: date }, building: building)
 
-    bookings.each do |booking|
-      hour_from = booking.date_from.hour
-      hour_to = booking.date_to.hour
-      if available_hours.include?(hour_from) 
-        (hour_from...hour_to).each do |hour|
-          available_hours.delete(hour)
-        end
-      end
-    end
-
-    (date_from.hour...date_to.hour).each do |hour|
-      return errors.add :date, 'is taken' unless available_hours.include?(hour)
-    end
+    booking_service = PossibleBookingService.new(building, date, date_from, date_to)
+    return errors.add :date, 'is taken' unless booking_service.call
   end
 end
