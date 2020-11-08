@@ -35,7 +35,7 @@ class Api::V1::Events::Create < AuthenticatedInteraction
   private
 
   def building
-    @_building = Building.find_by(id: building_id)
+    @_building ||= Building.find_by(id: building_id)
   end
 
   def booking_building?

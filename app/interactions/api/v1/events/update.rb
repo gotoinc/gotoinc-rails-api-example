@@ -13,7 +13,7 @@ class Api::V1::Events::Update < AuthenticatedInteraction
   end
 
   validate :is_admin?, if: proc { user.present? }
-  validate :event, if: proc { id.present? }
+  validates :event, presence: true, if: proc { id.present? }
   validate :valid_date?, if: proc { date.present? }
   validate :building, if: proc { building_id.present? }
   validate :booking_building?, if: proc { building.present? }
@@ -36,9 +36,9 @@ class Api::V1::Events::Update < AuthenticatedInteraction
 
   def update_booking!
     if event.booking.present?
-      event.booking.update(building: building, date_from: date_from, date_to: date_to)
+      event.booking.update(booking_params)
     else
-      event.create_booking(building: building, date_from: date_from, date_to: date_to)
+      event.create_booking(booking_params)
     end
   end
 
@@ -50,16 +50,24 @@ class Api::V1::Events::Update < AuthenticatedInteraction
     }
   end
 
+  def booking_params
+    {
+      building: building,
+      date_from: date_from,
+      date_to: date_to
+    }
+  end
+
   def valid_date?
     errors.add :date, 'is invalid' if date < DateTime.now
   end
 
   def event
-    @_event = Event.find_by(id: id)
+    @_event ||= Event.find_by(id: id)
   end
 
   def building
-    @_building = Building.find_by(id: building_id)
+    @_building ||= Building.find_by(id: building_id)
   end
 
   def booking_building?
