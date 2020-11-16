@@ -42,12 +42,30 @@ class Api::V1::Iot::Update < BaseInteraction
     message = {
       type: 'alert',
       building_name: building.name,
-      message: "Event you gonna attend is in dangerous - #{urgent_message}"
+      message: {
+        en: "Event you gonna attend is in dangerous - #{error2message(urgent_message)[:en]}",
+        uk: "Приміщення заходу який ви плануєте відвідати має термінове повідомлення - #{error2message(urgent_message)[:uk]}"
+      }
     }
 
     SendEventAlertJob.perform_later({
       message: message,
       event_ids: event_ids
     })
+  end
+
+  def error2message(error)
+    case error
+    when 'temp_error'
+      {
+        en: 'temperature is too high, it may be fire on building',
+        uk: 'температура дуже висока, можлива пожежа'
+      }
+    when 'air_error'
+      {
+        en: 'air conditions are not well',
+        uk: 'показники повітря незадовільні'
+      }
+    end
   end
 end

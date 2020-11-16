@@ -3,7 +3,7 @@ class Api::V1::Groups::Create < AuthenticatedInteraction
   string :name
   integer :admin_id
 
-  validate :is_admin?, if: proc { user.present? }
+  validates :is_admin?, inclusion: { in: [ true ], message: ' - you are not allowed to do this' }, if: proc { user.present? }
   validates :university, presence: true, if: proc { university_id.present? }
   validates :admin, presence: true, if: proc { admin_id.present? }
 

@@ -9,7 +9,7 @@ class Api::V1::Events::Create < AuthenticatedInteraction
     date_time :date_to
   end
 
-  validate :is_admin?, if: proc { user.present? }
+  validates :is_admin?, inclusion: { in: [ true ], message: ' - you are not allowed to do this' }, if: proc { user.present? }
   validate :building, if: proc { building_id.present? }
   validate :booking_building?, if: proc { building.present? }
   validate :possible_booking?, if: proc { booking_building? }

@@ -14,7 +14,7 @@ class AuthenticatedInteraction < BaseInteraction
   end
 
   def is_admin?
-    true # user.admin?
+    !!user.group_members.first&.admin?
   end
 
   def token(user)

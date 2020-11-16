@@ -8,6 +8,7 @@ class Api::V1::Buildings::Update < AuthenticatedInteraction
 
   validates :university, presence: true, if: proc { university_id.present? }
   validates :building, presence: true, if: proc { id.present? }
+  validates :is_admin?, inclusion: { in: [ true ], message: ' - you are not allowed to do this' }, if: proc { user.present? }
 
   serialize_with BuildingSerializer
 

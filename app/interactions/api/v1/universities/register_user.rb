@@ -6,6 +6,7 @@ class Api::V1::Universities::RegisterUser < AuthenticatedInteraction
   string :password
 
   validate :group, if: proc { group_id.present? }
+  validates :is_admin?, inclusion: { in: [ true ], message: ' - you are not allowed to do this' }, if: proc { user.present? }
 
   serialize_with UserSerializer
 

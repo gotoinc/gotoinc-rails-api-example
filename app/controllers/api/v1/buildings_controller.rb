@@ -1,5 +1,5 @@
 class Api::V1::BuildingsController < Api::V1::AuthorizedController
   def initialize
-    initialize_interactions('Api::V1::Buildings', %w[index create show update])
+    initialize_interactions('Api::V1::Buildings', %w[index create show update destroy])
   end
 end

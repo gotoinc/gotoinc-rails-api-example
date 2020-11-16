@@ -12,7 +12,7 @@ class Api::V1::Events::Update < AuthenticatedInteraction
     date_time :date_to
   end
 
-  validate :is_admin?, if: proc { user.present? }
+  validates :is_admin?, inclusion: { in: [ true ], message: ' - you are not allowed to do this' }, if: proc { user.present? }
   validates :event, presence: true, if: proc { id.present? }
   validate :valid_date?, if: proc { date.present? }
   validate :building, if: proc { building_id.present? }
