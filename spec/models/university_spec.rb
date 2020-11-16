@@ -4,6 +4,7 @@ RSpec.describe University, type: :model do
   describe 'realations' do
     it { should have_many(:groups).dependent(:destroy) } 
     it { should have_many(:buildings).dependent(:destroy) }
+    it { should belong_to(:user) }
   end
 
   describe 'validations' do

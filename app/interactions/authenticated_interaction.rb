@@ -14,6 +14,10 @@ class AuthenticatedInteraction < BaseInteraction
   end
 
   def is_admin?
-    user.admin?
+    true # user.admin?
+  end
+
+  def token(user)
+    Jwt::JsonWebToken.encode({ user_id: user.id }) if user.valid?
   end
 end

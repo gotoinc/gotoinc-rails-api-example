@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Group, type: :model do
   describe 'relations' do
     it { should belong_to(:university) } 
-    it { should have_many(:users).dependent(:destroy) } 
+    it { should have_many(:users).through(:group_members).dependent(:destroy) } 
   end
 
   describe 'validations' do

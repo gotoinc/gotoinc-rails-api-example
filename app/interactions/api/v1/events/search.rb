@@ -1,7 +1,7 @@
 class Api::V1::Events::Search < AuthenticatedInteraction
   with_options default: nil do
     string :s
-    integer :university_id
+    string :university_id
   end
 
   validate :university, if: proc { university_id.present? }
@@ -18,7 +18,7 @@ class Api::V1::Events::Search < AuthenticatedInteraction
 
   def events    
     @_events ||= begin
-      e = Event.joins(user: :group).where("events.name LIKE ?", "%#{s}%")      
+      e = Event.joins(user: :groups).where("events.name LIKE ?", "%#{s}%")      
       e = e.where("groups.university_id = ?", university_id) if university.present?
       e
     end

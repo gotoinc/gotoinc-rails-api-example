@@ -1,20 +1,25 @@
-class Api::V1::Groups::Create < BaseInteraction
+class Api::V1::Groups::Create < AuthenticatedInteraction
   integer :university_id
   string :name
-  string :admin_email
+  integer :admin_id
 
-  validate :admin, if: proc { admin_email.present? }
-  validate :university, if: proc { university_id.present? }
+  validate :is_admin?, if: proc { user.present? }
+  validates :university, presence: true, if: proc { university_id.present? }
+  validates :admin, presence: true, if: proc { admin_id.present? }
 
   serialize_with GroupSerializer
 
   def execute
     group = Group.new(
       name: name,
-      admin_email: admin_email,
       university: university
     )
     errors.merge! group.errors and return unless group.save
+
+    group.group_members.create(
+      role: 'admin',
+      user: admin
+    )
 
     InteractionResult.new(
       group
@@ -24,10 +29,10 @@ class Api::V1::Groups::Create < BaseInteraction
   private
 
   def admin
-    User.where(email: admin_email).count == 0
+    @_admin ||= User.find_by(id: admin_id)
   end
 
   def university
-    University.find_by(id: university_id)
+    @_university ||= University.find_by(id: university_id)
   end
 end

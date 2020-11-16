@@ -1,4 +1,4 @@
-class Api::V1::Universities::Index < BaseInteraction
+class Api::V1::Universities::Index < AuthenticatedInteraction
   serialize_with UniversitySerializer
 
   def execute
