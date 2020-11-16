@@ -37,6 +37,6 @@ class PossibleBookingService
   end
 
   def day_of_the_week
-    @_day_of_the_week ||= date.strftime('%a').downcase.to_sym
+    @_day_of_the_week ||= date.strftime('%a').downcase
   end
 end

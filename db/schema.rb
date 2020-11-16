@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_184500) do
+ActiveRecord::Schema.define(version: 2020_11_16_203802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_184500) do
     t.string "temperature"
     t.string "air_quality"
     t.string "urgent_message"
+    t.float "lat"
+    t.float "lon"
     t.index ["university_id"], name: "index_buildings_on_university_id"
   end
 
@@ -65,12 +67,12 @@ ActiveRecord::Schema.define(version: 2020_11_16_184500) do
   end
 
   create_table "event_participants", force: :cascade do |t|
-    t.bigint "users_id"
+    t.bigint "user_id"
     t.bigint "event_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_event_participants_on_event_id"
-    t.index ["users_id"], name: "index_event_participants_on_users_id"
+    t.index ["user_id"], name: "index_event_participants_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|

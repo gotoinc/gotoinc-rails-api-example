@@ -9,5 +9,6 @@ class User < ApplicationRecord
   has_many :events
   has_many :conversation_participants, dependent: :destroy
   has_many :conversations, through: :conversation_participants, source: :conversation
+  has_many :event_participants, dependent: :destroy
   belongs_to :university
 end

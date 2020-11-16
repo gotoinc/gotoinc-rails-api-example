@@ -1,6 +1,6 @@
 class Building < ApplicationRecord
   belongs_to :university
-  has_many :booking, dependent: :destroy
+  has_many :bookings, dependent: :destroy
 
   validates :name, :location, presence: true
 

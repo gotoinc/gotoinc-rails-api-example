@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post :login, to: 'auth#login'
       post :translate, to: 'translate#index'
+      post :iot, to: "iot#update"
 
       resources :users do
         collection do
@@ -24,7 +25,9 @@ Rails.application.routes.draw do
         collection do
           get :search
         end
-        post :attend
+        member do
+          post :attend
+        end
       end
       
       resources :conversations do

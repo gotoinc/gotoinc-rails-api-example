@@ -37,7 +37,8 @@ gem "responders"
 gem 'dotenv-rails'
 gem 'active_model_serializers'
 gem 'fast_jsonapi'
-gem "google-cloud-translate"
+gem 'google-cloud-translate'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'pry-rails'
