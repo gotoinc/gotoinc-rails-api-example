@@ -31,6 +31,9 @@ Rails.application.routes.draw do
       end
       
       resources :conversations do
+        member do
+          post :create_message
+        end
         resources :conversations_participants, only: [:show, :create, :index]
         resources :chat_messages, only: [:show, :create, :index]
       end

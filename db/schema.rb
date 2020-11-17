@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_203802) do
+ActiveRecord::Schema.define(version: 2020_11_17_184805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_203802) do
     t.string "urgent_message"
     t.float "lat"
     t.float "lon"
+    t.string "noise_level"
     t.index ["university_id"], name: "index_buildings_on_university_id"
   end
 

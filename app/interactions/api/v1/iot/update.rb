@@ -1,9 +1,12 @@
 class Api::V1::Iot::Update < BaseInteraction
   float :lat
   float :lon
-  string :temperature
-  string :air_quality
-  string :urgent_message, default: nil
+  with_options default: nil do
+    string :temperature
+    string :noise_level
+    string :air_quality
+    string :urgent_message
+  end
 
   validates :building, presence: { message: "has invalid coordinates" }, if: proc { lat.present? && lon.present? }
 
@@ -11,7 +14,8 @@ class Api::V1::Iot::Update < BaseInteraction
     building.update(
       temperature: temperature,
       air_quality: air_quality,
-      urgent_message: urgent_message
+      urgent_message: urgent_message,
+      noise_level: noise_level
     )
 
     send_alert_to_participants! if urgent_message.present?
@@ -65,6 +69,11 @@ class Api::V1::Iot::Update < BaseInteraction
       {
         en: 'air conditions are not well',
         uk: 'показники повітря незадовільні'
+      }
+    when 'noise_error'
+      {
+        en: 'noise level is too high',
+        uk: 'рівень шуму занадто високий'
       }
     end
   end

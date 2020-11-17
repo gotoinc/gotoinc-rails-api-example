@@ -1,4 +1,4 @@
-class Api::V1::Buildings::Show < AuthenticatedInteraction
+class Api::V1::Buildings::Destroy < AuthenticatedInteraction
   integer :university_id
   integer :id
 
