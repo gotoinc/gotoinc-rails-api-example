@@ -1,7 +1,7 @@
 class Api::V1::Events::Attend < AuthenticatedInteraction
   integer :id
 
-  validate :event, if: proc { id.present? }
+  validates :event, presence: true, if: proc { id.present? }
 
   serialize_with EventSerializer
 

@@ -4,7 +4,7 @@ class Api::V1::Events::Search < AuthenticatedInteraction
     string :university_id
   end
 
-  validate :university, if: proc { university_id.present? }
+  validates :university, presence: true, if: proc { university_id.present? }
 
   serialize_with EventSerializer
 

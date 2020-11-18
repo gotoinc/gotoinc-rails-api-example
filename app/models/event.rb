@@ -6,4 +6,5 @@ class Event < ApplicationRecord
 
   has_one :university, through: :user, source: :university
   has_many :event_participants, dependent: :destroy
+  has_many :comments, dependent: :destroy
 end

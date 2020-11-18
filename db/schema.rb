@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_184805) do
+ActiveRecord::Schema.define(version: 2020_11_18_093129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_184805) do
     t.float "lat"
     t.float "lon"
     t.string "noise_level"
+    t.float "area"
     t.index ["university_id"], name: "index_buildings_on_university_id"
   end
 
@@ -51,6 +52,17 @@ ActiveRecord::Schema.define(version: 2020_11_17_184805) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["conversation_id"], name: "index_chat_messages_on_conversation_id"
     t.index ["conversation_participant_id"], name: "index_chat_messages_on_conversation_participant_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "event_id"
+    t.string "title"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_comments_on_event_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "conversation_participants", force: :cascade do |t|
@@ -113,7 +125,6 @@ ActiveRecord::Schema.define(version: 2020_11_17_184805) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "password"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

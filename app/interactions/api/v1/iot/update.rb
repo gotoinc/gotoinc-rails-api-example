@@ -43,13 +43,15 @@ class Api::V1::Iot::Update < BaseInteraction
 
   # send alert message to each participant
   def send_alert_to_participants!
+    message_body = {
+      en: "Event you gonna attend is in dangerous - #{error2message(urgent_message)[:en]}",
+      uk: "Приміщення заходу який ви плануєте відвідати має термінове повідомлення - #{error2message(urgent_message)[:uk]}"
+    }
+
     message = {
       type: 'alert',
       building_name: building.name,
-      message: {
-        en: "Event you gonna attend is in dangerous - #{error2message(urgent_message)[:en]}",
-        uk: "Приміщення заходу який ви плануєте відвідати має термінове повідомлення - #{error2message(urgent_message)[:uk]}"
-      }
+      message: message_body.to_json
     }
 
     SendEventAlertJob.perform_later({

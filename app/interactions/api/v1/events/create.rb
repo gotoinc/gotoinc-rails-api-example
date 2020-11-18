@@ -10,8 +10,8 @@ class Api::V1::Events::Create < AuthenticatedInteraction
   end
 
   validates :is_admin?, inclusion: { in: [ true ], message: ' - you are not allowed to do this' }, if: proc { user.present? }
-  validate :building, if: proc { building_id.present? }
-  validate :booking_building?, if: proc { building.present? }
+  validates :building, presence: true, if: proc { building_id.present? }
+  validates :booking_building?, inclusion: { in: [ true ] }, if: proc { building.present? }
   validate :possible_booking?, if: proc { booking_building? }
 
   serialize_with EventSerializer

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       post :login, to: 'auth#login'
       post :translate, to: 'translate#index'
       post :iot, to: "iot#update"
+      get :iot_find_building, to: "iot#find"
 
       resources :users do
         collection do
@@ -21,9 +22,11 @@ Rails.application.routes.draw do
       resources :universities_non_auth, only: [:create]
 
       resources :events do
+        resources :comments
         resources :bookings
         collection do
           get :search
+          get :nearest_events
         end
         member do
           post :attend

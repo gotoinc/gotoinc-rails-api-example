@@ -3,6 +3,7 @@ class Api::V1::Buildings::Create < AuthenticatedInteraction
   string :name
   string :description
   string :location
+  float :area
   string :available_time
 
   validates :university, presence: true, if: proc { university_id.present? }
@@ -15,6 +16,7 @@ class Api::V1::Buildings::Create < AuthenticatedInteraction
       name: name,
       description: description,
       location: location,
+      area: area,
       available_time: JSON.parse(available_time)
     )
     return errors.merge! building.errors unless building.save
