@@ -15,7 +15,7 @@ class Api::V1::Users::Index < AuthenticatedInteraction
 
   def users
     if group.present?
-      User.preload(:groups, :university).where(groups: [group])
+      User.joins(:group_members).where(group_members: {group: group})
     else
       User.preload(:groups, :university).where(university: university)
     end
