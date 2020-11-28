@@ -14,6 +14,13 @@ class EventSerializer
     end
   end
 
+  attribute :users do |object|
+    object.users.map do |entry|
+      entry = UserSerializer.new(entry)
+      entry.as_json
+    end
+  end
+
   attribute :building do |object|
     object.booking&.building
   end
