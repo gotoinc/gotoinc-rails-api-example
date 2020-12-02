@@ -1,7 +1,7 @@
 class UserChannel < ApplicationCable::Channel
   def subscribed
     stream_from "user_channel_#{current_user.id}"
-    say_hello
+    # say_hello('HI')
   end
 
   def unsubscribed

@@ -1,7 +1,7 @@
 class NotificationChannel < ApplicationCable::Channel
   def subscribed
     stream_from "notification_channel"
-    say_hello
+    # say_hello
   end
 
   def unsubscribed

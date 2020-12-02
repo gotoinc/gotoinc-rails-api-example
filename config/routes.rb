@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post :translate, to: 'translate#index'
       post :iot, to: "iot#update"
       get :iot_find_building, to: "iot#find"
+      get :certificate, to: "certificates#show"
 
       resources :users do
         collection do
