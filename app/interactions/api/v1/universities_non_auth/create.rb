@@ -26,6 +26,19 @@ class Api::V1::UniversitiesNonAuth::Create < Api::V1::Auth::BaseAuthInteraction
     )
     errors.merge! @user.errors and return unless @user.save
 
+    admin_group_name = {
+      en: 'Admin group',
+      uk: 'Група адміністратора'
+    }
+    group = Group.create(
+      name: admin_group_name.to_json,
+      university: @university
+    )
+    group.group_members.create(
+      role: 'admin',
+      user: @user
+    )
+
     InteractionResult.new(
       @user,
       {
