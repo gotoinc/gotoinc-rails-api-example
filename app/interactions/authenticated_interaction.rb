@@ -12,4 +12,12 @@ class AuthenticatedInteraction < BaseInteraction
   def user
     @user ||= User.find_by id: jwt.user_id if jwt.present?
   end
+
+  def is_admin?
+    !!user.group_members.first&.admin?
+  end
+
+  def token(user)
+    Jwt::JsonWebToken.encode({ user_id: user.id }) if user.valid?
+  end
 end

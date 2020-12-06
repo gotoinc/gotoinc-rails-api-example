@@ -13,7 +13,7 @@ module ApplicationCable
       token = request.params["token"]
       decoded_token = Jwt::JsonWebToken.from_token(token) if token.present?
       
-      if decoded_token.valid?
+      if decoded_token.present? && decoded_token.valid?
         User.find_by(id: decoded_token.user_id)
       else
         nil

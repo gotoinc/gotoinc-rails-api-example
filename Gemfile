@@ -37,6 +37,8 @@ gem "responders"
 gem 'dotenv-rails'
 gem 'active_model_serializers'
 gem 'fast_jsonapi'
+gem 'google-cloud-translate'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'pry-rails'
@@ -52,6 +54,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rails-erd'
 end
 
 group :test do
