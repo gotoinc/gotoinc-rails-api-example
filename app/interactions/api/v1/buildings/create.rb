@@ -21,7 +21,7 @@ class Api::V1::Buildings::Create < AuthenticatedInteraction
       area: area,
       available_time: JSON.parse(available_time),
       lat: lat,
-      lat: lon
+      lon: lon
     )
     return errors.merge! building.errors unless building.save
 
