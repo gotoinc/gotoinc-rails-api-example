@@ -3,7 +3,6 @@ class ConversationChannel < ApplicationCable::Channel
     conversation = Conversation.find_by(id: params[:room])
 
     stream_from "conversation_channel_#{conversation.id}"
-    
   end
 
   def unsubscribed

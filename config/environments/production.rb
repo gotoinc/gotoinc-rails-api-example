@@ -89,10 +89,9 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  Rails.application.config.action_cable.allowed_request_origins = ['http://localhost:8080', 'https://dmytro-havrysh-frontend.herokuapp.com', 'http://dmytro-havrysh-frontend.herokuapp.com']
-  config.web_socket_server_url = "wss://dmytro-havrysh-frontend.herokuapp.com/cable"
-  Rails.application.config.hosts << "dmytro-havrysh-frontend.herokuapp.com"
-  Rails.application.config.hosts << "events-university.herokuapp.com"
+  Rails.application.config.action_cable.allowed_request_origins = ['http://localhost:8080', 'https://your.domain.com', 'http://your.domain.com']
+  config.web_socket_server_url = "wss://your.domain.com/cable"
+  Rails.application.config.hosts << "your.domain.com"
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
